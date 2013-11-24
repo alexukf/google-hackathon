@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script>
+      ws = new WebSocket("ws://localhost:8888/ws");
+      ws.onmessage = function (message) {
+        var messages = document.getElementById('messages');
+        messages.innerHTML = "<br>[bt] " + message.data;
+      };
+        
+      update_bt = function() {
+        ws.send('BT');
+      };
+
+      ws2 = new WebSocket("ws://localhost:8888/ws2");
+      ws2.onmessage = function (message) {
+        var messages = document.getElementById('messages2');
+        messages.innerHTML = "<br>[maps] " + message.data.maps[0];
+      };
+
+      update_bt = function() {
+        ws.send('BT');
+      };
+
+      update_maps = function() {
+        ws2.send('MAPS');
+      };
+
+      window.onload = function() {
+        //setInterval(function(){update_bt()},5000);
+        setInterval(function(){update_maps()},5000);
+      };
+
+    </script>
+  </head>
+  <body onmousedown="return false;">
+    <div id="container"></div>
+    <div id="messages"></div>
+    <div id="messages2"></div>
+  </body>
+</html>
