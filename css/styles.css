@@ -1,0 +1,183 @@
+
+ /***** STRUCTURE *****/
+
+ body {
+	background: url('../img/bg.png') repeat-x;
+	background-color: #fff;
+	}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: white 0.02em 0.02em;
+	font-family: 'QlassikBold', sans-serif;
+	}
+
+h2 {
+	font-size: 2.0em;
+}
+
+ .content {
+	padding-top:100px;
+	font-size: 1.1em;
+	line-height: 1.8em;
+	}
+
+.content p {
+	font-size: 1.0em;
+	line-height: 1.8em;
+	margin-bottom: 1.1em;
+	}
+
+
+/***** BODY *****/
+
+.page-title {
+	padding: 100px 0 30px 0;
+	}
+
+.arrow-top img {
+	margin: -7px 0 0 15px;
+	}
+
+
+
+/***** NAVIGATION BAR *****/
+
+.navbar .brand {
+	font-weight: bold;
+	color: #eee;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
+}
+
+
+
+/***** HOMEPAGE *****/
+
+#details {
+	position: relative;
+	float: right;
+	width: 527px;
+	margin-top: 80px;
+	padding-left: 20px;
+}
+
+#icon {
+	position: relative;
+	float: left;
+	margin-right: 20px;
+}
+
+#app-name {
+	position: relative;
+	float: left;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+#app-name h1 {
+	font-size: 4.0em;
+	font-size: 4.0em;
+	color: #ECECEC;
+	text-shadow: -1px 0 #B3B3B3, 0 1px #B3B3B3, 1px 0 #B3B3B3, 0 -1px #B3B3B3, #020763 0.03em 0.03em;
+	}
+
+#signInDiv{
+	position:absolute;
+	top:4px;
+	padding-left: 100px;
+	}
+
+#version {
+	top: 30px;
+	position: relative;
+	float: left;
+}
+
+#welcome {
+	font-size: 1.4em;
+	margin-top: 6em;
+	clear: both;
+}
+
+#description {
+	margin-top: 2em;
+	margin-bottom: 1.8em;
+}
+
+#features li {
+	background: url('../img/check.png') no-repeat left;
+	list-style: none;
+	padding-left: 25px;
+	margin-left: -23px;
+	line-height: 1.7em;
+}
+
+.download-box {
+	width: 45%;
+	float: left;
+	padding-top: 20px;
+	padding-right: 5%;
+	font-size: 0.9em;
+	line-height: 1.3em;
+	}
+	
+
+/***** MAP *****/
+
+#getNearbyUsers, #nearby-users {
+	list-style: none;
+	font-family: 'QlassikBold', sans-serif;
+	text-shadow: white 0.01em 0.01em;
+}
+
+/***** CONTACT *****/
+
+#contact-form {
+	border-left: 1px solid #cccccc;
+	}
+
+#contact-info {
+	padding-bottom:20px;
+	}
+
+
+
+/***** FOOTER *****/
+
+.footer {
+	font-size: 0.85em;
+	line-height: 1.5em;
+	padding: 15px 0;
+	border-top: 1px solid #CCC;
+}
+
+#copyright-left {
+	float:left;
+	}
+
+#copyright-right {
+	float:right;
+	}
+
+
+
+/***** SIGN IN *****/
+
+#signOutButton {
+	background: url('../img/g+signout.png') no-repeat;
+	}
+.hide {
+	display: none;
+	}
+
+.show {
+	display: block;
+	}
+
+	
+/***** MAP *****/
+
+#map-canvas {
+	height: 500px;
+	margin: 0px;
+	padding: 0px
+}

@@ -1,0 +1,24 @@
+application: hackathon-php
+version: 1
+runtime: php
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /fancybox
+  static_dir: fancybox
+
+- url: /font
+  static_dir: font
+
+- url: /img
+  static_dir: img
+
+- url: /.*
+  script: index.html

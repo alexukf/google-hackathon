@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>HackApp</title>
+
+<!-- media-queries.js -->
+<!--[if lt IE 9]>
+	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+<!-- html5.js -->
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+
+<link href="font/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+<link href="css/media-queries.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+
+<meta name="viewport" content="width=device-width" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+<link href='http://fonts.googleapis.com/css?family=Exo:400,800' rel='stylesheet' type='text/css'>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="js/map.js"></script>
+	<script type="text/javascript">
+		// Update lista device-uri
+		function printNearbyUsers(users){
+			var content = "<ul id=\"nearbyUsersList\">";
+			for (var i = 0; i < users.length; i ++)
+			{
+				content = content.concat("<li>");
+				content = content.concat(users[i]);
+				content = content.concat("</li>");
+			}
+			content = content.concat("</ul><Br />");
+
+			document.getElementById("nearby-users").innerHTML = content;
+		}
+
+		// Update harta
+		function updateMap(mapData)
+		{
+			console.log("mapData");
+			console.log(mapData);
+
+			var lat = "0";
+			var lng = "0";
+				var myLatlng = new google.maps.LatLng(lat, lng);
+				var mapOptions = {
+				  zoom: 4,
+					center: myLatlng
+				}
+
+				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+				for (var i = 0; i < coordinates.length; i++) {
+					var msg = coordinates[i]['msg'];
+					var lat = coordinates[i]['lat'];
+					var lng = coordinates[i]['lng'];
+					var myLatlng = new google.maps.LatLng(lat, lng);
+
+					var marker = new google.maps.Marker({
+						position: myLatlng,
+						map: map,
+						title: msg
+					});
+				}
+		}
+
+		// preluare date automat
+		ws = new WebSocket("ws://localhost:8888/ws");
+		ws.onmessage = function (message) {
+			printNearbyUsers(message.data);
+		};
+
+		ws2 = new WebSocket("ws://localhost:8888/ws2");
+		ws2.onmessage = function (message) {
+			//updateMap(message.data);
+		};
+
+		update_bt = function() {
+		  ws.send('BT');
+		};
+
+		update_maps = function() {
+		  ws2.send('MAPS');
+		};
+
+		window.onload = function() {
+//		  setInterval(function(){update_bt()},3000);
+//		  setInterval(function(){update_maps()},1000);
+
+		  setInterval(function(){updateMap()},2000);
+			updateMap();
+		};
+	</script>
+</head>
+
+<body data-spy="scroll">
+
+<!-- TOP MENU NAVIGATION -->
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+
+			<a class="brand pull-left" href="#top">
+				HackApp
+				<div id="signInDiv">
+					<span id="signInButton" class="show">
+					  <span
+						class="g-signin"
+						data-callback="signinCallback"
+						data-clientid="357201289067-qc1is393arr830dpf2ndm6uj7kmndhps.apps.googleusercontent.com"
+						data-cookiepolicy="single_host_origin"
+						data-approvalprompt="force"
+						data-requestvisibleactions="http://schemas.google.com/AddActivity"
+						data-scope="https://www.googleapis.com/auth/plus.login">
+					  </span>
+					</span>
+					<span id="signOutButton" class="hide">
+						<img src ="img/g+signout.png" onclick="signOut();"/>
+					</span>
+				</div>
+			</a>
+
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			<div class="nav-collapse collapse">
+				<ul id="nav-list" class="nav pull-right">
+					<li><a href="#home">Home</a></li>
+					<li><a href="#map">Map</a></li>
+					<li><a href="#screenshots">Screenshots</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="container content container-fluid" id="home">
+
+	<!-- HOME -->
+	<div class="row-fluid">
+
+		<!-- PHONES IMAGE FOR DESKTOP MEDIA QUERY -->
+		<div class="span5 visible-desktop">
+			<img src="img/phones.png">
+		</div>
+
+		<!-- APP DETAILS -->
+		<div class="span7">
+
+			<!-- ICON -->
+			<div class="visible-desktop" id="icon">
+				<img src="img/app_icon.png" />
+			</div>
+
+			<!-- APP NAME -->
+			<div id="app-name">
+				<h1>HackApp</h1>
+			</div>
+
+			<!-- VERSION -->
+			<div id="version">
+				<span class="version-top label label-inverse">Version 1.0</span>
+			</div>
+
+			<!-- WELCOME -->
+			<div id="welcome">
+				<h2 id="welcomeMessage">Welcome</h2>
+			</div>
+
+			<!-- PHONES IMAGE FOR TABLET MEDIA QUERY -->
+			<div class="hidden-desktop" id="phones">
+				<img src="img/phones.png">
+			</div>
+
+			<!-- DESCRIPTION -->
+			<div id="description">
+				HackApp is a free, fully responsive
+				mobile application. Give it a try now!
+			</div>
+
+			<!-- FEATURES -->
+			<ul id="features">
+				<li>Fully Responsive HTML/CSS3</li>
+				<li>Built on Bootstrap</li>
+				<li>Completely Free!</li>
+				<li>Localization feature</li>
+			</ul>
+
+			<!-- DOWNLOAD & REQUIREMENT BOX -->
+			<div class="download-box">
+				<a href="#"><img src="img/available-on-the-app-store.png"></a>
+			</div>
+			<div class="download-box">
+				<a href="#"><img src="img/android_app_on_play_logo_large.png"></a>
+			</div>
+			<div class="download-box">
+				<strong>Requirements:</strong><br>
+				Compatible with iPhone and iPod touch. Requires iPhone OS 2.2 or later. WiFi, Edge, or 3G network connection sometimes required.
+			</div>
+			<div class="download-box">
+				<strong>Requirements:</strong><br>
+				Requires Android 2.3 and higher. WiFi, Edge, or 3G network connection sometimes required.
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- MAP -->
+	<div class="row-fluid" id="map">
+		<div>
+			<h2 class="page-title" id="scroll_up">
+				Map
+				<a href="#home" class="arrow-top">
+				<img src="img/arrow-top.png">
+				</a>
+			</h2>
+
+			<div id="map-canvas"></div>
+			<p><Br /><h3>Nearby Users</h3></p>
+		<div id="nearby-users">
+		</div>
+		</div>
+	</div>
+
+
+	<!-- SCREENSHOTS -->
+	<div class="row-fluid" id="screenshots">
+
+		<h2 class="page-title" id="scroll_up">
+				Screenshots
+				<a href="#home" class="arrow-top">
+				<img src="img/arrow-top.png">
+				</a>
+			</h2>
+
+		<!-- SCREENSHOT IMAGES ROW-->
+		<ul class="thumbnails">
+			<li class="span3">
+				<a href="img/screenshot.jpg" rel="gallery" class="thumbnail">
+				<img src="img/screenshot.jpg" alt="">
+				</a>
+			</li>
+
+			<li class="span3">
+				<a href="img/screenshot.jpg" rel="gallery" class="thumbnail">
+				<img src="img/screenshot.jpg" alt="">
+				</a>
+			</li>
+
+			<li class="span3">
+				<a href="img/screenshot.jpg" rel="gallery" class="thumbnail">
+				<img src="img/screenshot.jpg" alt="">
+				</a>
+			</li>
+
+			<li class="span3">
+				<a href="img/screenshot.jpg" rel="gallery" class="thumbnail">
+				<img src="img/screenshot.jpg" alt="">
+				</a>
+			</li>
+		</ul>
+	</div>
+
+
+	<!-- CONTACT -->
+	<div class="row-fluid" id="contact">
+
+		<h2 class="page-title" id="scroll_up">
+			Contact
+			<a href="#home" class="arrow-top">
+			<img src="img/arrow-top.png">
+			</a>
+		</h2>
+
+		<!-- CONTACT INFO -->
+		<div class="span4" id="contact-info">
+			<h3>Contact Us</h3>
+			<p>HackApp is totally free, so you
+				are free to use it however you wish.
+			</p>
+			<p>If you want to contact us about general business inquiries or
+				to report bugs, you can either send an email, or simply
+				complete the contact form.
+			<p>
+			<p><a href="mailto:alex.marin89@gmail.com">
+				contact@homesocialnetwork.com
+			</a></p>
+		</div>
+
+		<!-- CONTACT FORM -->
+		<div class="span7" id="contact-form">
+			<form class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="name">Name</label>
+						<div class="controls">
+							<input class="input-xlarge" type="text" id="name" placeholder="Jack Bauer">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="email">Email</label>
+						<div class="controls">
+							<input class="input-xlarge" type="text" id="email" placeholder="jack24@gmail.com">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="subject">Subject</label>
+						<div class="controls">
+							<input class="input-xlarge" type="text" id="subject" placeholder="General Inquiry">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="message">Message</label>
+						<div class="controls">
+							<textarea class="input-xlarge" rows="3" id="message" placeholder="Your message..."></textarea>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">SEND</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+
+	</div>
+
+</div>
+
+
+<!-- FOOTER -->
+<div class="footer container container-fluid">
+	<div id="copyright-left">
+		Copyright &copy; Google Hackathon: Develop To Connect<br>
+	</div>
+	<div id="copyright-right">
+		Bucharest, 2013
+	</div>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-collapse.js"></script>
+<script src="js/bootstrap-scrollspy.js"></script>
+<script src="fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script src="fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script src="js/init.js"></script>
+<script src="js/signin.js"></script>
+<script src="https://apis.google.com/js/client:plusone.js"></script>
+    <script type="text/javascript">
+        function init() {
+            google.devrel.samples.hello.init('//' + window.location.host + '/_ah/api');
+        }
+    </script>
+    <script type="text/javascript" src="./js/map.js"></script>
+</body>
+</html>

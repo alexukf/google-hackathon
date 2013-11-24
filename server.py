@@ -8,11 +8,11 @@ import bluetooth
 import json
 import os
 
-import test as ds
+import datastore_example as ds
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('discover.html')
+        self.render('index.html')
 
 class WSHandler(tornado.websocket.WebSocketHandler):
     def open(self):
