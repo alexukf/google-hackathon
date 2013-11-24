@@ -31,6 +31,8 @@ function initialize(coord) {
 			map: map,
 			title: msg
 		});
+		markersArray.push(marker);
+		google.maps.event.addListener(marker,"click",function(){});
 	}
 	
 	google.maps.event.addDomListener(window, 'load', initialize);

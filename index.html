@@ -23,6 +23,7 @@
 <link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 <script type="text/javascript" >
 	var map;
+	var markersArray = [];
 </script>
 <meta name="viewport" content="width=device-width" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -51,14 +52,22 @@
 			document.getElementById("nearby-users").innerHTML = content;
 		}
 
+		function clearOverlays() {
+		  for (var i = 0; i < markersArray.length; i++ ) {
+			markersArray[i].setMap(null);
+		  }
+		  markersArray = [];
+		}
+
+
 		// Update harta
 		function updateMap(mapDataString)
 		{
 			console.log("mapData");
 			console.log(mapDataString);
 
-if(mapDataString === undefined)
-	return;
+		if(mapDataString === undefined)
+			return;
 
 			var mapData = JSON.parse(mapDataString);
 			console.log(mapData);
@@ -72,7 +81,7 @@ if(mapDataString === undefined)
 				}
 
 				//var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+				clearOverlays();
 				for (var i = 0; i < mapData.length; i++) {
 					var lat = parseFloat(mapData[i]['lat_key']);
 					var lng = parseFloat(mapData[i]['long_key']);
@@ -83,33 +92,35 @@ if(mapDataString === undefined)
 						map: map,
 						title: ""
 					});
+					markersArray.push(marker);
+					google.maps.event.addListener(marker,"click",function(){});
 				}
 		}
 
-// preluare date automat
-      ws = new WebSocket("ws://localhost:8888/ws");
+		// preluare date automat
+		ws = new WebSocket("ws://localhost:8888/ws");
 		ws.onmessage = function (message) {
-			printNearbyUsers(message.data);
+				printNearbyUsers(message.data);
 		};
 
-      ws2 = new WebSocket("ws://localhost:8888/ws2");
+		ws2 = new WebSocket("ws://localhost:8888/ws2");
 		ws2.onmessage = function (message) {
 			updateMap(message.data);
 		};
 
-      update_bt = function() {
-        ws.send('BT');
-      };
+		update_bt = function() {
+			ws.send('BT');
+		};
 
-      update_maps = function() {
-        ws2.send('MAPS');
-      };
+		update_maps = function() {
+			ws2.send('MAPS');
+		};
 
-      window.onload = function() {
-        setInterval(function(){update_bt()},5000);
-        setInterval(function(){update_maps()},5000);
-		setInterval(function(){updateMap()},5000);
-      };
+		window.onload = function() {
+			setInterval(function(){update_bt()},5000);
+			setInterval(function(){update_maps()},5000);
+			setInterval(function(){updateMap()},5000);
+		};
 
 	</script>
 </head>

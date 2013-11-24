@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="fragmentContainer" type="id"></item>
+    <item name="label1" type="id"></item>
+    <item name="label2" type="id"></item>
+    <item name="label3" type="id"></item>
+    <item name="imageContainer" type="id"></item>
+
+</resources>
