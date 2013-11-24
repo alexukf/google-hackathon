@@ -34,8 +34,10 @@
 	<script type="text/javascript">
 		// Update lista device-uri
 		function printNearbyUsers(usersString){
-return;
+			console.log("printNearbyUsers");
+			console.log(usersString);
 			var users = JSON.parse(usersString);
+			console.log(users);
 
 			var content = "<ul id=\"nearbyUsersList\">";
 			for (var i = 0; i < users.length; i ++)
@@ -162,6 +164,22 @@ if(mapDataString === undefined)
 <!-- MAIN CONTENT -->
 <div class="container content container-fluid" id="home">
 
+	<!-- MAP -->
+	<div class="row-fluid" id="map" style="margin-top:-100px!important;">
+		<div>
+			<h2 class="page-title" id="scroll_up">
+				Map
+				<a href="#home" class="arrow-top">
+				<img src="img/arrow-top.png">
+				</a>
+			</h2>
+
+			<div id="map-canvas"></div>
+			<p><Br /><h3>Nearby Users</h3></p>
+		<div id="nearby-users">
+		</div>
+		</div>
+	</div>
 	<!-- HOME -->
 	<div class="row-fluid">
 
@@ -232,22 +250,6 @@ if(mapDataString === undefined)
 	</div>
 
 
-	<!-- MAP -->
-	<div class="row-fluid" id="map">
-		<div>
-			<h2 class="page-title" id="scroll_up">
-				Map
-				<a href="#home" class="arrow-top">
-				<img src="img/arrow-top.png">
-				</a>
-			</h2>
-
-			<div id="map-canvas"></div>
-			<p><Br /><h3>Nearby Users</h3></p>
-		<div id="nearby-users">
-		</div>
-		</div>
-	</div>
 
 
 	<!-- SCREENSHOTS -->

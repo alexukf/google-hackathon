@@ -12,6 +12,8 @@ import subprocess
 import datastore_example as ds
 
 
+known_devices = {'a1':'Cristi', 'a2':'Alex'}
+
 def get_temperature():
     p = subprocess.Popen(['thermometer'], stdout=subprocess.PIPE,
             stderr=subprocess.PIPE, shell=True)
@@ -28,11 +30,12 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         nearby_devices = bluetooth.discover_devices(duration=2, lookup_names=True)
 
-        msg = "found %d devices" % len(nearby_devices)
+        msg = []
         for addr, name in nearby_devices:
-            msg += "%s" % (addr,)
+            msg.append(addr)
 
-        self.write_message(tornado.escape.to_basestring(msg))
+        #self.write_message(tornado.escape.to_basestring(msg))
+        self.write_message(json.dumps(msg))
         print msg
 
     def on_close(self):

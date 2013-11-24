@@ -14,7 +14,7 @@ function initialize(coord) {
 	var lng = coord[0]['lng'];
 	var myLatlng = new google.maps.LatLng(lat, lng);
 	var mapOptions = {
-	  zoom: 12,
+	  zoom: 15,
 		center: myLatlng
 	}
 
@@ -32,6 +32,8 @@ function initialize(coord) {
 			title: msg
 		});
 	}
+	
+	google.maps.event.addDomListener(window, 'load', initialize);
 }
 
 
