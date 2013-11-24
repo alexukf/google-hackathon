@@ -6,11 +6,7 @@
       ws.onmessage = function (message) {
         var messages = document.getElementById('messages');
         messages.innerHTML = "<br>[bt] " + message.data;
-      };
-        
-      update_bt = function() {
-        ws.send('BT');
-      };
+      };        
 
       ws2 = new WebSocket("ws://localhost:8888/ws2");
       ws2.onmessage = function (message) {

@@ -7,8 +7,15 @@ import tornado.web
 import bluetooth
 import json
 import os
+import subprocess
 
 import datastore_example as ds
+
+
+def get_temperature():
+    p = subprocess.Popen(['thermometer'], stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, shell=True)
+    return out.strip()
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -17,7 +24,6 @@ class MainHandler(tornado.web.RequestHandler):
 class WSHandler(tornado.websocket.WebSocketHandler):
     def open(self):
         print 'new connection'
-        self.write_message("Started!")
 
     def on_message(self, message):
         nearby_devices = bluetooth.discover_devices(duration=2, lookup_names=True)
@@ -32,11 +38,23 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def on_close(self):
         print 'connection closed'
 
+class WSHandlerTemp(tornado.websocket.WebSocketHandler):
+    def open(self):
+        print 'new connection temp'
+        self.write_message("Started!")
+
+    def on_message(self, message):
+        data = json.dumps(['temp', get_temperature()])
+
+        self.write_message(data)
+        print data
+
+    def on_close(self):
+        print 'connection closed temp'
 
 class WSHandlerMap(tornado.websocket.WebSocketHandler):
     def open(self):
         print 'new connection2'
-        self.write_message("Started!")
 
     def on_message(self, message):
         data = ds.get_data('stone-notch-404')
@@ -52,6 +70,12 @@ application = tornado.web.Application([
     (r'/', MainHandler),
     (r'/ws', WSHandler),
     (r'/ws2', WSHandlerMap),
+    (r'/ws3', WSHandlerTemp),
+    (r'/img/(.*)',tornado.web.StaticFileHandler, {"path": "./img"},),
+    (r'/js/(.*)',tornado.web.StaticFileHandler, {"path": "./js"},),
+    (r'/css/(.*)',tornado.web.StaticFileHandler, {"path": "./css"},),
+    (r'/font/(.*)',tornado.web.StaticFileHandler, {"path": "./font"},),
+    (r'/fancybox/(.*)',tornado.web.StaticFileHandler, {"path": "./fancybox"},),
 ])
 
 if __name__ == "__main__":

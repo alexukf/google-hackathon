@@ -2,25 +2,23 @@
 var coordinates = new Array();
 coordinates[0] = new Array();
 coordinates[1] = new Array();
-coordinates[0]['msg'] = "mesaj1";
-coordinates[0]['lat'] = -25.363882;
-coordinates[0]['lng'] = 131.044922;
-coordinates[1]['msg'] = "mesaj2";
-coordinates[1]['lat'] = -24.363882;
-coordinates[1]['lng'] = 132.044922;
-
-
+coordinates[0]['msg'] = "";
+coordinates[0]['lat'] = 44.4461438;
+coordinates[0]['lng'] = 26.0977535;
+coordinates[1]['msg'] = "";
+coordinates[1]['lat'] = 44.4461428;
+coordinates[1]['lng'] = 26.0977525;
 
 function initialize(coord) {
 	var lat = coord[0]['lat'];
 	var lng = coord[0]['lng'];
 	var myLatlng = new google.maps.LatLng(lat, lng);
 	var mapOptions = {
-	  zoom: 4,
+	  zoom: 12,
 		center: myLatlng
 	}
 
-	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 	for (var i = 0; i < coord.length; i++) {
 		var msg = coord[i]['msg'];
